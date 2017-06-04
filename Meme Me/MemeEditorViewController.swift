@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate {
+class MemeEditorViewController: UIViewController {
     @IBOutlet weak var memeIV: UIImageView!
     @IBOutlet weak var topTF: UITextField!
     @IBOutlet weak var bottomTF: UITextField!
@@ -178,5 +178,14 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
         showImagePickerVC(source: "camera")
     }
 
+}
+extension MemeEditorViewController: UIImagePickerControllerDelegate {
+    
+}
+extension MemeEditorViewController: UINavigationControllerDelegate {
+    
+}
+extension MemeEditorViewController: UITextFieldDelegate {
+    
 }
 
