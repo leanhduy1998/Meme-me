@@ -27,7 +27,6 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
         
         shareBtn.isEnabled = false
         discardBtn.isEnabled = false
-        bottomToolbar.isHidden = false
         
         takePicBtn.isEnabled = UIImagePickerController.isSourceTypeAvailable(.camera)
         super.viewWillAppear(animated)
@@ -54,9 +53,7 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
         
     }
     @IBAction func choosePictureBtnPressed(_ sender: Any) {
-        let UIImagePicker = UIImagePickerController()
-        UIImagePicker.delegate = self
-        self.present(UIImagePicker, animated: true, completion: nil)
+        showImagePickerVC(source: "photo library")
     }
     
     @IBAction func shareBtnPressed(_ sender: Any) {
@@ -83,7 +80,6 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
         }
     }
     @IBAction func discardBtnPressed(_ sender: Any) {
-        bottomToolbar.isHidden = false
         shareBtn.isEnabled = false
         discardBtn.isEnabled = false
         memeIV.image=nil
@@ -149,8 +145,7 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
     func generateMemedImage() -> UIImage {
         
         self.navigationController?.isNavigationBarHidden = true
-        topToolbar.isHidden = true
-        bottomToolbar.isHidden = true
+        hideToolbars(boo: true)
         
         // Render view to an image
         UIGraphicsBeginImageContext(self.view.frame.size)
@@ -159,18 +154,28 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
         UIGraphicsEndImageContext()
         
         self.navigationController?.isNavigationBarHidden = false
-        topToolbar.isHidden = false
-        bottomToolbar.isHidden = false
-        
+        hideToolbars(boo: false)
         
         return memedImage
     }
-
-    @IBAction func takePicBtnPressed(_ sender: Any) {
+    func hideToolbars(boo: Bool){
+        topToolbar.isHidden = boo
+        bottomToolbar.isHidden = boo
+    }
+    func showImagePickerVC(source:String){
         let imagePicker = UIImagePickerController()
         imagePicker.delegate = self
-        imagePicker.sourceType = .camera
+        if(source == "camera"){
+            imagePicker.sourceType = .camera
+        }
+        else {
+            imagePicker.sourceType = .photoLibrary
+        }
         present(imagePicker, animated: true, completion: nil)
+    }
+
+    @IBAction func takePicBtnPressed(_ sender: Any) {
+        showImagePickerVC(source: "camera")
     }
 
 }

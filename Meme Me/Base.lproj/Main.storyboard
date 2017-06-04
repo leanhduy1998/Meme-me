@@ -49,7 +49,7 @@
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="Vm4-yr-EoM"/>
                                     <barButtonItem title="Discard" id="4EU-Xg-ebx">
                                         <connections>
-                                            <action selector="discardBtnPressed:" destination="BYZ-38-t0r" id="5p7-DH-IGg"/>
+                                            <action selector="discardBtnPressed:" destination="BYZ-38-t0r" id="MlC-2n-pdx"/>
                                         </connections>
                                     </barButtonItem>
                                 </items>
