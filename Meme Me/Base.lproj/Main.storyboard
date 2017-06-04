@@ -10,10 +10,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Meme Editor View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Meme_Me" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="MemeEditorViewController" customModule="Meme_Me" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -22,94 +22,85 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="yy6-qj-sq4">
-                                <rect key="frame" x="10" y="20" width="355" height="30"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CnD-HO-0Zp">
-                                        <rect key="frame" x="0.0" y="0.0" width="40" height="30"/>
-                                        <state key="normal" title="Share"/>
-                                        <connections>
-                                            <action selector="shareBtnPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="9bO-u6-8aQ"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XSK-is-bfX">
-                                        <rect key="frame" x="302" y="0.0" width="53" height="30"/>
-                                        <state key="normal" title="Discard"/>
-                                        <connections>
-                                            <action selector="discardBtnPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="QG1-8j-0Y8"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                            </stackView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="VUf-Hl-yD8">
-                                <rect key="frame" x="0.0" y="50" width="375" height="557"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="VUf-Hl-yD8">
+                                <rect key="frame" x="0.0" y="64" width="375" height="559"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </imageView>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="LQa-yt-jlX">
-                                <rect key="frame" x="16" y="607" width="343" height="60"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lva-kp-D0P">
-                                        <rect key="frame" x="0.0" y="0.0" width="343" height="30"/>
-                                        <state key="normal" title="Take picture"/>
-                                        <connections>
-                                            <action selector="takePictureBtnPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Zfm-K7-NH8"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="j4K-O7-xeO">
-                                        <rect key="frame" x="0.0" y="30" width="343" height="30"/>
-                                        <state key="normal" title="Choose picture from album"/>
-                                        <connections>
-                                            <action selector="choosePictureBtnPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Dsj-rp-xfi"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                                <constraints>
-                                    <constraint firstItem="j4K-O7-xeO" firstAttribute="leading" secondItem="LQa-yt-jlX" secondAttribute="leading" id="IGd-ky-fFF"/>
-                                    <constraint firstAttribute="trailing" secondItem="j4K-O7-xeO" secondAttribute="trailing" id="Imp-rN-of0"/>
-                                </constraints>
-                            </stackView>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bzT-CC-5ol">
-                                <rect key="frame" x="26" y="70" width="323" height="17"/>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bzT-CC-5ol" userLabel="TopTF">
+                                <rect key="frame" x="26" y="84" width="323" height="17"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="YZO-Di-p3c">
-                                <rect key="frame" x="26" y="580" width="323" height="17"/>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="YZO-Di-p3c" userLabel="BottomTF">
+                                <rect key="frame" x="26" y="586" width="323" height="17"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
                             </textField>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hDf-Qh-xQL">
+                                <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                                <items>
+                                    <barButtonItem systemItem="action" id="UfR-JL-qVK">
+                                        <connections>
+                                            <action selector="shareBtnPressed:" destination="BYZ-38-t0r" id="AxW-p4-nQF"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="Vm4-yr-EoM"/>
+                                    <barButtonItem title="Discard" id="4EU-Xg-ebx">
+                                        <connections>
+                                            <action selector="discardBtnPressed:" destination="BYZ-38-t0r" id="5p7-DH-IGg"/>
+                                        </connections>
+                                    </barButtonItem>
+                                </items>
+                            </toolbar>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2LJ-RS-6mm">
+                                <rect key="frame" x="0.0" y="623" width="375" height="44"/>
+                                <items>
+                                    <barButtonItem systemItem="camera" id="J8P-qF-9Pm">
+                                        <connections>
+                                            <action selector="takePicBtnPressed:" destination="BYZ-38-t0r" id="fsg-tZ-q28"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="79d-A1-wxA"/>
+                                    <barButtonItem title="Choose picture from album" id="448-Va-BCw">
+                                        <connections>
+                                            <action selector="choosePictureBtnPressed:" destination="BYZ-38-t0r" id="zpU-8p-wjh"/>
+                                        </connections>
+                                    </barButtonItem>
+                                </items>
+                            </toolbar>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="yy6-qj-sq4" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" constant="20" symbolic="YES" id="2eo-KL-na8"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="2LJ-RS-6mm" secondAttribute="bottom" id="2Wl-Ta-h6g"/>
+                            <constraint firstItem="2LJ-RS-6mm" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="2vp-cW-c01"/>
                             <constraint firstItem="bzT-CC-5ol" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="376-f5-WPi"/>
+                            <constraint firstItem="VUf-Hl-yD8" firstAttribute="top" secondItem="hDf-Qh-xQL" secondAttribute="bottom" id="4WB-Gz-cf3"/>
                             <constraint firstItem="VUf-Hl-yD8" firstAttribute="centerX" secondItem="bzT-CC-5ol" secondAttribute="centerX" id="4XC-1Z-8xc"/>
                             <constraint firstItem="YZO-Di-p3c" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="10" id="51C-jH-Dqz"/>
                             <constraint firstItem="bzT-CC-5ol" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="10" id="5gc-64-rhQ"/>
-                            <constraint firstItem="bzT-CC-5ol" firstAttribute="top" secondItem="yy6-qj-sq4" secondAttribute="bottom" constant="20" id="9Ry-E3-EVt"/>
-                            <constraint firstItem="VUf-Hl-yD8" firstAttribute="top" secondItem="yy6-qj-sq4" secondAttribute="bottom" id="BXt-Q2-JXk"/>
+                            <constraint firstItem="hDf-Qh-xQL" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="6vX-ce-m9V"/>
+                            <constraint firstItem="hDf-Qh-xQL" firstAttribute="trailing" secondItem="VUf-Hl-yD8" secondAttribute="trailing" id="7HP-OA-9hd"/>
+                            <constraint firstItem="2LJ-RS-6mm" firstAttribute="top" secondItem="YZO-Di-p3c" secondAttribute="bottom" constant="20" id="DAA-qT-Ggf"/>
                             <constraint firstAttribute="trailingMargin" secondItem="bzT-CC-5ol" secondAttribute="trailing" constant="10" id="F5c-CM-OMo"/>
-                            <constraint firstItem="LQa-yt-jlX" firstAttribute="top" secondItem="VUf-Hl-yD8" secondAttribute="bottom" id="GB1-02-P0A"/>
+                            <constraint firstItem="hDf-Qh-xQL" firstAttribute="leading" secondItem="VUf-Hl-yD8" secondAttribute="leading" id="HAs-ws-FsS"/>
                             <constraint firstAttribute="trailingMargin" secondItem="YZO-Di-p3c" secondAttribute="trailing" constant="10" id="IEj-JN-ROl"/>
-                            <constraint firstItem="LQa-yt-jlX" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="P3t-1c-Oco"/>
-                            <constraint firstAttribute="trailing" secondItem="yy6-qj-sq4" secondAttribute="trailing" constant="10" id="TuL-XT-tUJ"/>
-                            <constraint firstItem="yy6-qj-sq4" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="10" id="ZaW-fG-W0V"/>
+                            <constraint firstItem="2LJ-RS-6mm" firstAttribute="top" secondItem="VUf-Hl-yD8" secondAttribute="bottom" id="Skv-nT-inu"/>
                             <constraint firstItem="VUf-Hl-yD8" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="aJW-iz-N8U"/>
-                            <constraint firstItem="LQa-yt-jlX" firstAttribute="top" secondItem="YZO-Di-p3c" secondAttribute="bottom" constant="10" id="c7g-uu-kcg"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="LQa-yt-jlX" secondAttribute="bottom" id="mrZ-yZ-iRr"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="LQa-yt-jlX" secondAttribute="trailing" id="wp8-GP-YLF"/>
+                            <constraint firstItem="bzT-CC-5ol" firstAttribute="top" secondItem="hDf-Qh-xQL" secondAttribute="bottom" constant="20" id="bEM-vu-hr9"/>
+                            <constraint firstItem="2LJ-RS-6mm" firstAttribute="leading" secondItem="VUf-Hl-yD8" secondAttribute="leading" id="qN9-44-UCa"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="bottomTV" destination="YZO-Di-p3c" id="Ah4-rh-uvp"/>
-                        <outlet property="discardBtn" destination="XSK-is-bfX" id="A0H-e5-Cea"/>
+                        <outlet property="bottomTF" destination="YZO-Di-p3c" id="DZL-0h-jsg"/>
+                        <outlet property="bottomToolbar" destination="2LJ-RS-6mm" id="yVB-3f-qih"/>
+                        <outlet property="discardBtn" destination="4EU-Xg-ebx" id="5gO-y8-WCP"/>
                         <outlet property="memeIV" destination="VUf-Hl-yD8" id="zK4-uc-AQh"/>
-                        <outlet property="pictureStackView" destination="LQa-yt-jlX" id="KYA-GB-Ac6"/>
-                        <outlet property="shareBtn" destination="CnD-HO-0Zp" id="cYf-Ow-9Rn"/>
-                        <outlet property="toolBarStackView" destination="yy6-qj-sq4" id="s7A-Aa-qzR"/>
-                        <outlet property="topTV" destination="bzT-CC-5ol" id="IEB-2T-VOA"/>
+                        <outlet property="shareBtn" destination="UfR-JL-qVK" id="Khf-gT-i7e"/>
+                        <outlet property="takePicBtn" destination="J8P-qF-9Pm" id="fHe-F1-O5B"/>
+                        <outlet property="topTF" destination="bzT-CC-5ol" id="HzD-xg-8Kq"/>
+                        <outlet property="topToolbar" destination="hDf-Qh-xQL" id="EtK-7h-IsL"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

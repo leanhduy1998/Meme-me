@@ -8,57 +8,50 @@
 
 import UIKit
 
-class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate {
+class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate {
     @IBOutlet weak var memeIV: UIImageView!
-    @IBOutlet weak var topTV: UITextField!
-    @IBOutlet weak var bottomTV: UITextField!
-    @IBOutlet weak var toolBarStackView: UIStackView!
-    @IBOutlet weak var pictureStackView: UIStackView!
+    @IBOutlet weak var topTF: UITextField!
+    @IBOutlet weak var bottomTF: UITextField!
+    @IBOutlet weak var topToolbar: UIToolbar!
+    @IBOutlet weak var bottomToolbar: UIToolbar!
     
-    @IBOutlet weak var shareBtn: UIButton!
-    @IBOutlet weak var discardBtn: UIButton!
-    var meme:Meme!
-    
-    
-    
-    
-    struct Meme{
-        var topText: String!
-        var bottomText: String!
-        var originalImage: UIImage!
-        var memedImage: UIImage!
-    }
+    @IBOutlet weak var shareBtn: UIBarButtonItem!
+    @IBOutlet weak var discardBtn: UIBarButtonItem!
+    @IBOutlet weak var takePicBtn: UIBarButtonItem!
 
     override func viewWillAppear(_ animated: Bool) {
-        let memeTextAttributes:[String:Any] = [
-            NSStrokeColorAttributeName: UIColor.black,
-            NSForegroundColorAttributeName: UIColor.white,
-            NSFontAttributeName: UIFont(name: "HelveticaNeue-CondensedBlack", size: 40)!,
-            NSStrokeWidthAttributeName: -5.0]
-        topTV.defaultTextAttributes = memeTextAttributes
-        bottomTV.defaultTextAttributes = memeTextAttributes
-        topTV.delegate = self
-        bottomTV.delegate = self
-        topTV.textAlignment = .center
-        bottomTV.textAlignment = .center
+        configure(topTF, defaultText: "Top text placeholder")
+        configure(bottomTF, defaultText: "Botton text placeholder")
         
         subscribeToKeyboardNotifications()
         
         shareBtn.isEnabled = false
         discardBtn.isEnabled = false
-        pictureStackView.isHidden = false
-        self.topTV.isEnabled = true
-        self.bottomTV.isEnabled = true
+        bottomToolbar.isHidden = false
+        
+        takePicBtn.isEnabled = UIImagePickerController.isSourceTypeAvailable(.camera)
         super.viewWillAppear(animated)
+    }
+    
+    
+    
+    func configure(_ textField: UITextField, defaultText: String) {
+        let memeTextAttributes:[String:Any] = [
+            NSStrokeColorAttributeName: UIColor.black,
+            NSForegroundColorAttributeName: UIColor.white,
+            NSFontAttributeName: UIFont(name: "HelveticaNeue-CondensedBlack", size: 40)!,
+            NSStrokeWidthAttributeName: -5.0]
+        textField.defaultTextAttributes = memeTextAttributes
+        textField.delegate = self
+        textField.textAlignment = .center
+        textField.text = defaultText
+        textField.isEnabled = true
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         unsubscribeFromKeyboardNotifications()
         
-    }
-
-    @IBAction func takePictureBtnPressed(_ sender: Any) {
     }
     @IBAction func choosePictureBtnPressed(_ sender: Any) {
         let UIImagePicker = UIImagePickerController()
@@ -67,18 +60,35 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
     
     @IBAction func shareBtnPressed(_ sender: Any) {
-        save()
-        let image = meme.memedImage
+        let image = generateMemedImage()
         let controller = UIActivityViewController(activityItems: [image], applicationActivities: nil)
         self.present(controller, animated: true, completion: nil)
+        controller.completionWithItemsHandler = { (activity, completed, items, error) in
+            
+            if (completed) {
+                
+                print("")
+                print("In MemeEditorViewController -> shareMeme() -> returning from successful \"sharing\"...")
+                
+                self.save()
+                
+            }
+            else {
+                
+                print("")
+                print("In MemeEditorViewController -> shareMeme() -> returning from cancelled \"sharing\"...")
+                
+            }
+            
+        }
     }
     @IBAction func discardBtnPressed(_ sender: Any) {
-        pictureStackView.isHidden = false
+        bottomToolbar.isHidden = false
         shareBtn.isEnabled = false
         discardBtn.isEnabled = false
         memeIV.image=nil
-        topTV.text = ""
-        bottomTV.text = ""
+        topTF.text = ""
+        bottomTF.text = ""
     }
     
     
@@ -90,7 +100,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             dismiss(animated: true, completion: {
                 self.shareBtn.isEnabled = true
                 self.discardBtn.isEnabled = true
-                self.pictureStackView.isHidden = true
             })
             
         }
@@ -100,12 +109,12 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         textField.text = ""
     }
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        topTV.resignFirstResponder()
-        bottomTV.resignFirstResponder()
+        topTF.resignFirstResponder()
+        bottomTF.resignFirstResponder()
         return true
     }
     func keyboardWillShow(_ notification:Notification) {
-        if bottomTV.isEditing {
+        if bottomTF.isEditing {
             view.frame.origin.y -=  getKeyboardHeight(notification)
         }
     }
@@ -131,15 +140,17 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         NotificationCenter.default.removeObserver(self, name: .UIKeyboardWillShow, object: nil)
     }
     
-    func save() {
+    func save () {
         // Create the meme
-        meme = Meme(topText: topTV.text, bottomText: bottomTV.text!, originalImage: memeIV.image!, memedImage: generateMemedImage())
+        let meme = Meme(topText: topTF.text, bottomText: bottomTF.text!, originalImage: memeIV.image!, memedImage: generateMemedImage())
+        
     }
+    
     func generateMemedImage() -> UIImage {
         
         self.navigationController?.isNavigationBarHidden = true
-        toolBarStackView.isHidden = true
-        pictureStackView.isHidden = true
+        topToolbar.isHidden = true
+        bottomToolbar.isHidden = true
         
         // Render view to an image
         UIGraphicsBeginImageContext(self.view.frame.size)
@@ -148,13 +159,19 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         UIGraphicsEndImageContext()
         
         self.navigationController?.isNavigationBarHidden = false
-        toolBarStackView.isHidden = false
-        pictureStackView.isHidden = false
+        topToolbar.isHidden = false
+        bottomToolbar.isHidden = false
         
         
         return memedImage
     }
 
+    @IBAction func takePicBtnPressed(_ sender: Any) {
+        let imagePicker = UIImagePickerController()
+        imagePicker.delegate = self
+        imagePicker.sourceType = .camera
+        present(imagePicker, animated: true, completion: nil)
+    }
 
 }
 
